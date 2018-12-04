@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
-import dilemma from './dilemma'
 import socket from './socket'
+import dilemma from './dilemma'
+import chat from './chat'
 
 const app = combineReducers({
+  socket,
   dilemma,
-  socket
+  chat
 })
 
 export default app

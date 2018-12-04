@@ -1,4 +1,52 @@
+@import '../../variables';
+
 .dilemma {
+  align-items: center;
+  border: 1px solid $grey;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+
+  h2 {
+    margin-bottom: 2rem;
+  }
+}
+
+.dilemma__intro {
+  margin-bottom: 2rem;
+  width: 100%;
+
+  p:first-child {
+  }
+}
+
+.dilemma__status {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 0;
+  text-align: center;
+}
+
+.dilemma__choices {
+  display: flex;
+  flex-direction: row;
+}
+
+.dilemma__choice {
+  flex-grow: 1;
+  font-family: monospace;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+
+  &:first-child {
+    color: green;
+    margin-right: 1rem;
+  }
+
+  &:last-child {
+    color: red;
+    margin-right: 0;
+  }
 }
