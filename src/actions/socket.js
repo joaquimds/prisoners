@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 
-import { SUBSCRIBE, NEW_DILEMMA, UPDATE_DILEMMA, NEW_MESSAGE } from '../constants'
+import { SUBSCRIBE, NEW_DILEMMA, UPDATE_DILEMMA, NEW_MESSAGE, RECAPTCHA_SITE_KEY } from '../constants'
 
 const socket = io('http://localhost:3001')
 
@@ -20,8 +20,11 @@ export const subscribe = () => {
 
 export const newGame = () => {
   return (dispatch) => {
-    socket.emit('reset')
     dispatch({ type: NEW_DILEMMA })
+    window.grecaptcha.ready(async () => {
+      const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'reset' })
+      socket.emit('reset', token)
+    })
   }
 }
 

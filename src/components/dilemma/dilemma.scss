@@ -41,12 +41,18 @@
   padding: 0.5rem 1rem;
 
   &:first-child {
-    color: green;
     margin-right: 1rem;
+
+    &:not([disabled]) {
+      color: green;
+    }
   }
 
   &:last-child {
-    color: red;
     margin-right: 0;
+
+    &:not([disabled]) {
+      color: red;
+    }
   }
 }
