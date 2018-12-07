@@ -1,6 +1,15 @@
 import io from 'socket.io-client'
 
-import { SUBSCRIBE, NEW_DILEMMA, UPDATE_DILEMMA, NEW_MESSAGE, RECAPTCHA_SITE_KEY } from '../constants'
+import {
+  SUBSCRIBE,
+  NEW_ERROR,
+  NEW_DILEMMA,
+  UPDATE_DILEMMA,
+  NEW_MESSAGE,
+  RECAPTCHA_SITE_KEY,
+  SENT_EMAIL,
+  PAYMENT
+} from '../constants'
 
 const socket = io('http://localhost:3001')
 
@@ -10,8 +19,16 @@ export const subscribe = () => {
       dispatch({ type: UPDATE_DILEMMA, dilemma })
     })
 
+    socket.on('dilemma_error', (message) => {
+      dispatch({ type: NEW_ERROR, message })
+    })
+
     socket.on('message', (content) => {
       dispatch({ type: NEW_MESSAGE, message: { from: 'Them', content } })
+    })
+
+    socket.on('payment', (success) => {
+      dispatch({ type: PAYMENT, success })
     })
 
     dispatch({ type: SUBSCRIBE, unsubscribe: () => { socket.close() } })
@@ -40,6 +57,16 @@ export const sendMessage = (message) => {
     if (message) {
       dispatch({ type: NEW_MESSAGE, message: { from: 'You', content } })
       socket.emit('message', message)
+    }
+  }
+}
+
+export const sendEmail = (_email) => {
+  return (dispatch) => {
+    const email = _email.trim()
+    if (email) {
+      socket.emit('email', email)
+      dispatch({ type: SENT_EMAIL })
     }
   }
 }

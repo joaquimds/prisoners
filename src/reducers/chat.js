@@ -1,4 +1,4 @@
-import { NEW_MESSAGE, CHANGE_MESSAGE, NEW_DILEMMA } from '../constants'
+import { NEW_MESSAGE, CHANGE_MESSAGE, NEW_DILEMMA, UPDATE_DILEMMA } from '../constants'
 
 const chat = (state = { messages: [], message: '' }, action) => {
   switch (action.type) {
@@ -8,6 +8,11 @@ const chat = (state = { messages: [], message: '' }, action) => {
       return { ...state, message: action.message }
     case NEW_DILEMMA:
       return { messages: [], message: '' }
+    case UPDATE_DILEMMA:
+      if (action.dilemma.players === 2) {
+        return { messages: [], message: '' }
+      }
+      return state
     default:
       return state
   }

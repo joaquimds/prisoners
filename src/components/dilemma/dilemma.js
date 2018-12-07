@@ -4,7 +4,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { CHOICES, OUTCOMES } from '../../constants'
-import { newGame, sendChoice } from '../../actions/socket'
+import { newGame, sendChoice, sendEmail } from '../../actions/socket'
+import { changeEmail } from '../../actions/email'
 
 class Dilemma extends Component {
   componentDidUpdate () {
@@ -15,7 +16,11 @@ class Dilemma extends Component {
   }
 
   getMessage () {
-    const { dilemma, waiting } = this.props
+    const { dilemma, waiting, error } = this.props
+
+    if (error) {
+      return error
+    }
 
     if (dilemma) {
       switch (dilemma.outcome) {
@@ -30,7 +35,7 @@ class Dilemma extends Component {
             return 'Waiting for a partner...'
           }
           if (dilemma.hasChosen) {
-            return 'Waiting...'
+            return 'Waiting for your partner...'
           }
           const now = Date.now()
           if (dilemma.readyTimestamp && dilemma.readyTimestamp > now) {
@@ -47,11 +52,42 @@ class Dilemma extends Component {
     return 'Play now!'
   }
 
+  getPaymentMessage () {
+    const { dilemma, email, paymentSuccess, waitingForPayment } = this.props
+    if (!dilemma) {
+      return null
+    }
+    if (!waitingForPayment && !paymentSuccess) {
+      return null
+    }
+    const amount = dilemma.hasWon ? '1' : '0.50'
+    if (waitingForPayment) {
+      return (
+        <p>
+          Paying &pound;{amount} to {email}...
+        </p>
+      )
+    }
+    if (paymentSuccess) {
+      return (
+        <p>
+          Paid &pound;{amount} to {email}. Please be patient:
+          it may take up to an hour to arrive in your account.
+        </p>
+      )
+    }
+  }
+
   getButtons () {
-    const { dilemma, waiting, makeChoice, newGame } = this.props
+    const { dilemma, waiting, makeChoice, newGame, paymentSuccess } = this.props
     const inPlay = dilemma && dilemma.outcome === OUTCOMES.PENDING
+    const hasWon = dilemma && dilemma.hasWon
 
     if (waiting) {
+      return []
+    }
+
+    if (hasWon && !paymentSuccess) {
       return []
     }
 
@@ -69,9 +105,37 @@ class Dilemma extends Component {
     ]
   }
 
+  getForm () {
+    const { dilemma, email, changeEmail, paymentSuccess } = this.props
+    if (!dilemma) {
+      return null
+    }
+    if (!dilemma.hasWon) {
+      return null
+    }
+    if (paymentSuccess) {
+      return null
+    }
+    return (
+      <form className='dilemma__form' onSubmit={(e) => this.onSubmit(e)}>
+        <label htmlFor='email'>Enter your email address</label>
+        <input id='email' type='text' value={email} onChange={(e) => changeEmail(e.target.value)} />
+        <button className='dilemma__choice' type='submit'>Collect Winnings</button>
+      </form>
+    )
+  }
+
+  onSubmit (e) {
+    e.preventDefault()
+    const { email, sendEmail } = this.props
+    sendEmail(email)
+  }
+
   render () {
     const message = this.getMessage()
+    const paymentMessage = this.getPaymentMessage()
     const buttons = this.getButtons()
+    const form = this.getForm()
     return (
       <div className='dilemma'>
         <h2>Dilemma</h2>
@@ -89,6 +153,8 @@ class Dilemma extends Component {
         </div>
         <div className='dilemma__main'>
           <p className='dilemma__status'>{message}</p>
+          {paymentMessage}
+          {form}
           <div className='dilemma__choices'>
             {buttons}
           </div>
@@ -98,7 +164,9 @@ class Dilemma extends Component {
   }
 }
 
-const mapStateToProps = ({ dilemma: { current, waiting } }) => ({ dilemma: current, waiting })
+const mapStateToProps = ({ error, email, dilemma: { current, waiting, waitingForPayment, paymentSuccess } }) => (
+  { dilemma: current, error, waiting, email, waitingForPayment, paymentSuccess }
+)
 const mapDispatchToProps = (dispatch) => {
   return {
     makeChoice: (choice) => {
@@ -106,6 +174,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     newGame: () => {
       dispatch(newGame())
+    },
+    changeEmail: (email) => {
+      dispatch(changeEmail(email))
+    },
+    sendEmail: (email) => {
+      dispatch(sendEmail(email))
     }
   }
 }
