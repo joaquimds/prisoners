@@ -1,0 +1,32 @@
+@import '../../variables';
+
+.main {
+  border: 1px solid $grey;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+
+  h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+}
+
+.main__intro {
+  margin-bottom: 2rem;
+}
+
+.main__error {
+  text-align: center;
+}
+
+.main__message {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0 0 1rem 0;
+}
+
+.main__donate {
+  margin: auto auto 0 auto;
+}

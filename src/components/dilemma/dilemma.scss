@@ -1,3 +1,5 @@
+@import '../../variables';
+
 .dilemma {
   margin-bottom: 1rem;
 }
@@ -19,9 +21,8 @@
 }
 
 .dilemma__choice {
+  color: $grey;
   flex-grow: 1;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
 
   &:first-child {
     margin-right: 1rem;

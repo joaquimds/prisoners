@@ -2,7 +2,9 @@ import io from 'socket.io-client'
 
 import {
   SUBSCRIBE,
+  NEW_WARNING,
   NEW_ERROR,
+  NEW_FATAL_ERROR,
   RESET,
   UPDATE_DILEMMA,
   NEW_MESSAGE,
@@ -19,8 +21,16 @@ export const subscribe = () => {
       dispatch({ type: UPDATE_DILEMMA, dilemma })
     })
 
-    socket.on('api_error', ({ message, fatal }) => {
-      dispatch({ type: NEW_ERROR, message, fatal })
+    socket.on('api_warning', ({ message }) => {
+      dispatch({ type: NEW_WARNING, message })
+    })
+
+    socket.on('api_error', ({ message }) => {
+      dispatch({ type: NEW_ERROR, message })
+    })
+
+    socket.on('fatal_api_error', ({ message }) => {
+      dispatch({ type: NEW_FATAL_ERROR, message })
     })
 
     socket.on('message', (content) => {

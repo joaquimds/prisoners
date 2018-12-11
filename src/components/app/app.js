@@ -3,7 +3,7 @@ import './app.scss'
 import React, { Component } from 'react'
 import connect from 'react-redux/es/connect/connect'
 
-import Game from '../game/game'
+import Main from '../main/main'
 import Chat from '../chat/chat'
 import { subscribe } from '../../actions/socket'
 
@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <div className='container'>
         <div className='app'>
-          <Game />
+          <Main />
           <Chat />
         </div>
         <div className='mobile'>

@@ -7,3 +7,9 @@ html, body, #root {
 html, body, button, input, select, option {
   font-family: monospace;
 }
+
+button {
+  color: green;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+}

@@ -1,25 +1,4 @@
-@import '../../variables';
-
 .game {
-  border: 1px solid $grey;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  padding: 0.5rem;
-  margin-right: 0.5rem;
-
-  h2 {
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-}
-
-.game__intro {
-  margin-bottom: 2rem;
-  width: 100%;
-}
-
-.game__main,.game__error {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -34,14 +13,6 @@
 }
 
 .game__button {
-  color: green;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  margin: 0 auto 1rem auto;
+  margin: 0 auto;
   width: 50%;
 }
-
-.game__donate {
-  margin: auto auto 0 auto;
-}
-
