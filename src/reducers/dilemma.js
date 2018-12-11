@@ -1,15 +1,11 @@
-import { NEW_DILEMMA, UPDATE_DILEMMA, SENT_EMAIL, PAYMENT } from '../constants'
+import { RESET, UPDATE_DILEMMA } from '../constants'
 
-const dilemma = (state = {}, action) => {
+const dilemma = (state = null, action) => {
   switch (action.type) {
-    case NEW_DILEMMA:
-      return { waiting: true }
+    case RESET:
+      return null
     case UPDATE_DILEMMA:
-      return { ...state, current: action.dilemma, waiting: false }
-    case SENT_EMAIL:
-      return { ...state, waitingForPayment: true }
-    case PAYMENT:
-      return { ...state, waitingForPayment: false, paymentSuccess: action.success }
+      return action.dilemma
     default:
       return state
   }

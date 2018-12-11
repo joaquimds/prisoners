@@ -6,9 +6,9 @@
   box-sizing: border-box;
   display: none;
   flex-direction: row;
-  height: 100%;
   margin: 0 auto;
   max-width: 800px;
+  min-height: 100%;
   padding: 0.5rem;
 
   @media screen and (min-width: 550px) {

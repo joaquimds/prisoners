@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux'
 import socket from './socket'
-import error from './error'
+import game from './game'
 import dilemma from './dilemma'
-import email from './email'
+import payment from './payment'
 import chat from './chat'
 
 const app = combineReducers({
   socket,
-  error,
+  game,
   dilemma,
-  email,
+  payment,
   chat
 })
 

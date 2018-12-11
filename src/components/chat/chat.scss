@@ -19,6 +19,12 @@
   margin: auto;
 }
 
+.chat__active {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .chat__messages {
   display: flex;
   flex-direction: column;

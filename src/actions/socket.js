@@ -3,7 +3,7 @@ import io from 'socket.io-client'
 import {
   SUBSCRIBE,
   NEW_ERROR,
-  NEW_DILEMMA,
+  RESET,
   UPDATE_DILEMMA,
   NEW_MESSAGE,
   RECAPTCHA_SITE_KEY,
@@ -19,8 +19,8 @@ export const subscribe = () => {
       dispatch({ type: UPDATE_DILEMMA, dilemma })
     })
 
-    socket.on('dilemma_error', (message) => {
-      dispatch({ type: NEW_ERROR, message })
+    socket.on('api_error', ({ message, fatal }) => {
+      dispatch({ type: NEW_ERROR, message, fatal })
     })
 
     socket.on('message', (content) => {
@@ -37,7 +37,7 @@ export const subscribe = () => {
 
 export const newGame = () => {
   return (dispatch) => {
-    dispatch({ type: NEW_DILEMMA })
+    dispatch({ type: RESET })
     window.grecaptcha.ready(async () => {
       const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'reset' })
       socket.emit('reset', token)

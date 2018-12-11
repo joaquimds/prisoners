@@ -2,7 +2,8 @@
 export const SUBSCRIBE = 'SUBSCRIBE'
 export const NEW_ERROR = 'NEW_ERROR'
 
-export const NEW_DILEMMA = 'NEW_DILEMMA'
+export const RESET = 'RESET'
+
 export const UPDATE_DILEMMA = 'UPDATE_DILEMMA'
 
 export const NEW_MESSAGE = 'NEW_MESSAGE'
