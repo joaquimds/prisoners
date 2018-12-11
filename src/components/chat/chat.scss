@@ -7,7 +7,6 @@
   flex-direction: column;
   flex-shrink: 0;
   padding: 0.5rem;
-  width: 200px;
 
   h2 {
     margin-bottom: 1rem;
@@ -17,6 +16,9 @@
 
 .chat__placeholder {
   margin: auto;
+  &:last-child {
+    padding-bottom: 1rem;
+  }
 }
 
 .chat__active {

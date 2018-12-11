@@ -4,12 +4,16 @@
   border: 1px solid $grey;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   padding: 0.5rem;
-  margin-right: 0.5rem;
 
   h2 {
     margin-bottom: 2rem;
     text-align: center;
+  }
+
+  > * {
+    flex-shrink: 0;
   }
 }
 

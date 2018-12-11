@@ -80,7 +80,7 @@ class Game extends Component {
         if (dilemma.players < 2) {
           return 'Waiting for a partner...'
         }
-        if (dilemma.hasChosen) {
+        if (dilemma.choice) {
           return 'Waiting for your partner...'
         }
         return 'Make your choice!'
@@ -114,7 +114,8 @@ class Game extends Component {
       <div className='game__choices'>
         {
           CHOICES.map(choice => (
-            <button className='game__choice' key={choice} onClick={() => makeChoice(choice)} disabled={disabled}>
+            <button className={`game__choice ${choice === dilemma.choice ? ' game__choice--selected' : ''}`}
+              key={choice} onClick={() => makeChoice(choice)} disabled={disabled}>
               {choice}
             </button>
           ))

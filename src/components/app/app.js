@@ -16,15 +16,9 @@ class App extends Component {
   }
   render () {
     return (
-      <div className='container'>
-        <div className='app'>
-          <Main />
-          <Chat />
-        </div>
-        <div className='mobile'>
-          <h2>Dilemma</h2>
-          <p>Sorry, you can't play on a small screen.</p>
-        </div>
+      <div className='app'>
+        <Main />
+        <Chat />
       </div>
     )
   }
