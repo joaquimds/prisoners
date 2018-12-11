@@ -23,7 +23,7 @@ class PaymentForm extends Component {
     return (
       <form className='payment-form' onSubmit={(e) => this.onSubmit(e)}>
         <label htmlFor='email'>Enter your email address:</label>
-        <input id='email' type='text' value={email} onChange={(e) => changeEmail(e.target.value)} />
+        <input id='email' type='text' value={email} onChange={(e) => changeEmail(e.target.value)} disabled={success} />
         <button className='payment-form__button' type='submit' disabled={success}>Collect Winnings</button>
         <small>{message}</small>
       </form>
