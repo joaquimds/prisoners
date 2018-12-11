@@ -7,6 +7,7 @@ import {
   NEW_FATAL_ERROR,
   RESET,
   UPDATE_DILEMMA,
+  UPDATE_STATS,
   NEW_MESSAGE,
   RECAPTCHA_SITE_KEY,
   SENT_EMAIL,
@@ -39,6 +40,10 @@ export const subscribe = () => {
 
     socket.on('payment', (success) => {
       dispatch({ type: PAYMENT, success })
+    })
+
+    socket.on('stats', (stats) => {
+      dispatch({ type: UPDATE_STATS, stats })
     })
 
     dispatch({ type: SUBSCRIBE, unsubscribe: () => { socket.close() } })

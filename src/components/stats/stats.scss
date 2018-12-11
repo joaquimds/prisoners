@@ -1,0 +1,36 @@
+@import '../../variables';
+
+.stats {
+  align-items: center;
+  border: 1px solid $grey;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 2rem auto;
+  padding: 0.5rem;
+  width: 200px;
+
+  h3 {
+    margin-top: 0;
+  }
+}
+
+.stats__row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.stats__row--Split {
+  color: green;
+}
+
+.stats__row--Steal {
+  color: red;
+}
+
+.stats__column {
+  &:first-child {
+    font-weight: bold;
+    margin-right: auto;
+  }
+}

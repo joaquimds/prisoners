@@ -2,6 +2,7 @@ import './main.scss'
 
 import React from 'react'
 import Game from '../game/game'
+import Stats from '../stats/stats'
 
 const Main = () => (
   <div className='main'>
@@ -19,6 +20,7 @@ const Main = () => (
       <p>When the game is over, enter your PayPal email address to receive your winnings.</p>
     </div>
     <Game />
+    <Stats />
     <form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top' className='main__donate'>
       <input type='hidden' name='cmd' value='_s-xclick' />
       <input type='hidden' name='hosted_button_id' value='XMRHM6EPJLGYA' />
