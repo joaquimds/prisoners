@@ -14,7 +14,7 @@ import {
   PAYMENT
 } from '../constants'
 
-const socket = io('http://localhost:3001')
+const socket = io(process.env.REACT_APP_WEBSOCKET_URL)
 
 export const subscribe = () => {
   return (dispatch) => {
