@@ -7,8 +7,8 @@ import Main from '../main/main'
 import Chat from '../chat/chat'
 import { subscribe } from '../../actions/socket'
 
-const idleTitle = document.title
-const playingTitle = document.title + ' | Playing'
+const initialTitle = document.title
+const alertTitle = '* ' + document.title
 
 class App extends Component {
   componentDidMount () {
@@ -21,11 +21,7 @@ class App extends Component {
     })
   }
   componentDidUpdate (prevProps) {
-    if (!this.props.dilemma) {
-      document.title = idleTitle
-      return
-    }
-    if (!prevProps.dilemma) {
+    if (this.props.dilemma && !prevProps.dilemma && document.hidden) {
       this.showTitleAlert()
     }
   }
@@ -41,20 +37,17 @@ class App extends Component {
     )
   }
   showTitleAlert () {
-    document.title = playingTitle
-    if (!document.hidden) {
-      return
-    }
+    document.title = alertTitle
     this.titleAlertHandle = setInterval(() => {
-      document.title = document.title === playingTitle ? idleTitle : playingTitle
-    }, 2000)
+      document.title = document.title === alertTitle ? initialTitle : alertTitle
+    }, 1500)
   }
   hideTitleAlert () {
     if (this.titleAlertHandle !== null) {
       clearInterval(this.titleAlertHandle)
+      this.titleAlertHandle = null
+      document.title = initialTitle
     }
-    this.titleAlertHandle = null
-    document.title = this.props.dilemma ? playingTitle : idleTitle
   }
 }
 
