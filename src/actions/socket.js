@@ -32,6 +32,7 @@ export const subscribe = () => {
 
     socket.on('disconnect', () => {
       dispatch({ type: NEW_FATAL_ERROR, message: 'Disconnected from server' })
+      socket.disconnect()
     })
 
     socket.on('fatal_api_error', ({ message }) => {
