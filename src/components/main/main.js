@@ -6,7 +6,7 @@ import Stats from '../stats/stats'
 
 const Main = () => (
   <div className='main'>
-    <h2>Dilemma</h2>
+    <h2>Anon's Dilemma</h2>
     <div className='main__intro'>
       <p>
         Play Prisoner's Dilemma online, for real money!
