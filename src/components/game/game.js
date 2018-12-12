@@ -29,14 +29,7 @@ class Game extends Component {
       <div className='game'>
         {this.renderMessage()}
         {
-          !fatalError ? (
-            <div className='game__controls'>
-              {this.renderTimeRemaining()}
-              {this.renderButtons()}
-              {this.renderPaymentForm()}
-              {this.renderNewGameButton()}
-            </div>
-          ) : this.renderReloadButton()
+          !fatalError ? this.renderControls() : this.renderReloadButton()
         }
       </div>
     )
@@ -87,6 +80,19 @@ class Game extends Component {
     }
   }
 
+  renderControls () {
+    const controls = [
+      this.renderTimeRemaining(),
+      this.renderButtons(),
+      this.renderPaymentForm(),
+      this.renderNewGameButton()
+    ].filter(Boolean)
+    if (!controls.length) {
+      return null
+    }
+    return <div className='game__controls'>{controls}</div>
+  }
+
   renderTimeRemaining () {
     const { dilemma } = this.props
     if (!dilemma) {
@@ -98,7 +104,7 @@ class Game extends Component {
     if (isDilemmaComplete(dilemma)) {
       return null
     }
-    return <p className='game__remaining'>Time remaining: {Math.floor((dilemma.endTimestamp - Date.now()) / 1000)}</p>
+    return <p key='remaining' className='game__remaining'>Time remaining: {Math.floor((dilemma.endTimestamp - Date.now()) / 1000)}</p>
   }
 
   renderButtons () {
@@ -111,7 +117,7 @@ class Game extends Component {
     }
     const disabled = isDilemmaWaiting(dilemma)
     return (
-      <div className='game__choices'>
+      <div key='choices' className='game__choices'>
         {
           CHOICES.map(choice => (
             <button className={`game__choice ${choice === dilemma.choice ? ' game__choice--selected' : ''}`}
@@ -129,7 +135,7 @@ class Game extends Component {
     if (!dilemma || !dilemma.hasWon) {
       return null
     }
-    return <PaymentForm />
+    return <PaymentForm key='payment' />
   }
 
   renderNewGameButton () {
@@ -140,7 +146,7 @@ class Game extends Component {
     if (dilemma && !isDilemmaComplete(dilemma)) {
       return null
     }
-    return <button className='game__reset' onClick={() => this.props.newGame()}>New Game</button>
+    return <button key='reset' className='game__reset' onClick={() => this.props.newGame()}>New Game</button>
   }
 
   renderReloadButton () {
