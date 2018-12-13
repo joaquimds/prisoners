@@ -24,13 +24,11 @@ class Game extends Component {
   }
 
   render () {
-    const fatalError = this.props.game.error && this.props.game.error.fatal
+    const connected = this.props.connected
     return (
       <div className='game'>
         {this.renderMessage()}
-        {
-          !fatalError ? this.renderControls() : this.renderReloadButton()
-        }
+        { connected ? this.renderControls() : null }
       </div>
     )
   }
@@ -41,7 +39,11 @@ class Game extends Component {
   }
 
   getMessage () {
-    const { game, dilemma } = this.props
+    const { game, dilemma, connected } = this.props
+
+    if (!connected) {
+      return 'Connecting...'
+    }
 
     if (game.error && game.error.message) {
       return game.error.message
@@ -81,6 +83,10 @@ class Game extends Component {
   }
 
   renderControls () {
+    if (this.props.game.error && this.props.game.error.fatal) {
+      return this.renderReloadButton()
+    }
+
     const controls = [
       this.renderTimeRemaining(),
       this.renderButtons(),
@@ -154,7 +160,7 @@ class Game extends Component {
   }
 }
 
-const mapStateToProps = ({ game, dilemma, payment }) => ({ game, dilemma, payment })
+const mapStateToProps = ({ game, dilemma, payment, socket: { connected } }) => ({ game, dilemma, payment, connected })
 const mapDispatchToProps = (dispatch) => {
   return {
     newGame: () => {

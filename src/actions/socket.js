@@ -2,6 +2,7 @@ import io from 'socket.io-client'
 
 import {
   SUBSCRIBE,
+  CONNECTED,
   NEW_WARNING,
   NEW_ERROR,
   NEW_FATAL_ERROR,
@@ -18,6 +19,10 @@ const socket = io(process.env.REACT_APP_WEBSOCKET_URL)
 
 export const subscribe = () => {
   return (dispatch) => {
+    socket.on('connect', () => {
+      dispatch({ type: CONNECTED })
+    })
+
     socket.on('dilemma', (dilemma) => {
       dispatch({ type: UPDATE_DILEMMA, dilemma })
     })

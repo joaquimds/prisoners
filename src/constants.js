@@ -1,5 +1,7 @@
 /** Actions */
 export const SUBSCRIBE = 'SUBSCRIBE'
+export const CONNECTED = 'CONNECTED'
+
 export const NEW_WARNING = 'NEW_WARNING'
 export const NEW_ERROR = 'NEW_ERROR'
 export const NEW_FATAL_ERROR = 'NEW_FATAL_ERROR'
