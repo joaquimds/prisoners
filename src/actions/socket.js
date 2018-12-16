@@ -9,6 +9,7 @@ import {
   RESET,
   UPDATE_DILEMMA,
   UPDATE_STATS,
+  SEND_MESSAGE,
   NEW_MESSAGE,
   RECAPTCHA_SITE_KEY,
   SENT_EMAIL,
@@ -81,6 +82,7 @@ export const sendMessage = (message) => {
   return (dispatch) => {
     const content = message.trim()
     if (message) {
+      dispatch({ type: SEND_MESSAGE })
       dispatch({ type: NEW_MESSAGE, message: { from: 'You', content } })
       socket.emit('message', message)
     }

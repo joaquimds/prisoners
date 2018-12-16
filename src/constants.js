@@ -12,6 +12,7 @@ export const UPDATE_DILEMMA = 'UPDATE_DILEMMA'
 
 export const UPDATE_STATS = 'UPDATE_STATS'
 
+export const SEND_MESSAGE = 'SEND_MESSAGE'
 export const NEW_MESSAGE = 'NEW_MESSAGE'
 export const CHANGE_MESSAGE = 'CHANGE_MESSAGE'
 
