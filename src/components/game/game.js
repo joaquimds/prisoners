@@ -50,7 +50,7 @@ class Game extends Component {
     }
 
     if (game.waiting) {
-      return 'Waiting for a game...'
+      return 'Waiting for a partner...'
     }
 
     if (!dilemma) {
