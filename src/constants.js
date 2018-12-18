@@ -8,6 +8,8 @@ export const NEW_FATAL_ERROR = 'NEW_FATAL_ERROR'
 
 export const RESET = 'RESET'
 
+export const UPDATE_PLAYER_COUNT = 'UPDATE_PLAYER_COUNT'
+
 export const UPDATE_DILEMMA = 'UPDATE_DILEMMA'
 
 export const UPDATE_STATS = 'UPDATE_STATS'

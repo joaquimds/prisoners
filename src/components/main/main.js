@@ -1,10 +1,12 @@
 import './main.scss'
 
 import React from 'react'
+import { connect } from 'react-redux'
+
 import Game from '../game/game'
 import Stats from '../stats/stats'
 
-const Main = () => (
+const Main = ({ playerCount }) => (
   <div className='main'>
     <h2>Anon's Dilemma</h2>
     <div className='main__intro'>
@@ -21,6 +23,7 @@ const Main = () => (
     </div>
     <Game />
     <Stats />
+    <p className='main__player-count'>Current players: {playerCount}</p>
     <form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top' className='main__donate'>
       <input type='hidden' name='cmd' value='_s-xclick' />
       <input type='hidden' name='hosted_button_id' value='XMRHM6EPJLGYA' />
@@ -31,4 +34,8 @@ const Main = () => (
   </div>
 )
 
-export default Main
+const mapStateToProps = ({ main: { playerCount } }) => ({ playerCount })
+
+const MainContainer = connect(mapStateToProps)(Main)
+
+export default MainContainer

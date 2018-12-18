@@ -13,7 +13,7 @@ import {
   NEW_MESSAGE,
   RECAPTCHA_SITE_KEY,
   SENT_EMAIL,
-  PAYMENT
+  PAYMENT, UPDATE_PLAYER_COUNT
 } from '../constants'
 
 const socket = io(process.env.REACT_APP_WEBSOCKET_URL)
@@ -52,6 +52,10 @@ export const subscribe = () => {
 
     socket.on('payment', (success) => {
       dispatch({ type: PAYMENT, success })
+    })
+
+    socket.on('playerCount', (playerCount) => {
+      dispatch({ type: UPDATE_PLAYER_COUNT, playerCount })
     })
 
     socket.on('stats', (stats) => {
